@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:id="@+id/lesson_item_container"
+    android:layout_marginHorizontal="16dp"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="15dp"
+    android:elevation="10dp"
+    android:clipToOutline="true"
+    android:layout_marginBottom="10dp"
+    android:paddingVertical="5dp"
+    android:background="@drawable/radius_box">
+
+
+
+
+    <TextView
+        android:id="@+id/lesson_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Lesson name"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black" />
+
+
+    <TextView
+        android:id="@+id/lesson_description_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/lorem_sample_text"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lesson_name_text"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

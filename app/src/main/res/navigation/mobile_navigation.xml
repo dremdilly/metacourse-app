@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.metacourse.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_courseFragment"
+            app:destination="@id/courseFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +26,58 @@
         android:name="com.example.metacourse.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/courseFragment"
+        android:name="com.example.metacourse.ui.course.CourseFragment"
+        android:label="CourseFragment"
+        tools:layout="@layout/fragment_course">
+        <argument
+            android:name="id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_courseFragment_to_moduleFragment"
+            app:destination="@id/moduleFragment" />
+        <action
+            android:id="@+id/action_courseFragment_to_allModulesFragment"
+            app:destination="@id/allModulesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moduleFragment"
+        android:name="com.example.metacourse.ui.course.ModuleFragment"
+        android:label="ModuleFragment"
+        tools:layout="@layout/fragment_module">
+        <argument
+            android:name="id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_moduleFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/lessonFragment"
+        android:name="com.example.metacourse.ui.course.LessonFragment"
+        android:label="LessonFragment"
+        tools:layout="@layout/fragment_lesson">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allModulesFragment"
+        android:name="com.example.metacourse.ui.course.AllModulesFragment"
+        android:label="AllModulesFragment"
+        tools:layout="@layout/fragment_all_modules">
+        <argument
+            android:name="id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_allModulesFragment_to_moduleFragment"
+            app:destination="@id/moduleFragment" />
+    </fragment>
+
+
 </navigation>

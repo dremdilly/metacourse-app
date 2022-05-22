@@ -19,10 +19,11 @@ class SignupViewModel : ViewModel() {
 
     fun sendRegisterData(email: String, password: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            NetworkApi.authRetrofit("http://localhost:8181")
-            PreferenceManager.updateBaseUrl("http://localhost:8181")
+            NetworkApi.authRetrofit("http://localhost:95.141.136.227:8181/")
+            PreferenceManager.updateBaseUrl("http://localhost:95.141.136.227:8181/")
+            PreferenceManager.updatePhoto("")
 
-            val response = NetworkApi.retrofitService.sendRegisterRequest(
+            val response = NetworkApi.authService.sendRegisterRequest(
                 "application/json",
                 "application/json",
                 RegisterData(email, password)
@@ -30,6 +31,7 @@ class SignupViewModel : ViewModel() {
 
             if (response.isSuccessful) {
                 signupEventsChannel.send(SignupEvents.NavigateToSignin)
+//                NetworkApi.createRetrofit("https://cabinet.spdev.kz", response.body()!!.jwtAuthResponse.accessToken)
             } else {
                 signupEventsChannel.send(
                     SignupEvents.ShowErrorMessage(

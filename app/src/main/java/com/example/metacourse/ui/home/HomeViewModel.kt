@@ -2,6 +2,7 @@ package com.example.metacourse.ui.home
 
 import androidx.lifecycle.*
 import com.example.metacourse.ResourceHelper
+import com.example.metacourse.network.CategoriesData
 import com.example.metacourse.network.CourseModel
 import com.example.metacourse.network.NetworkApi
 import com.example.metacourse.ui.auth.SignupViewModel
@@ -14,7 +15,7 @@ import retrofit2.Response
 import timber.log.Timber
 
 class HomeViewModel(
-    private val resourceHelper: ResourceHelper
+    private val resourceHelper: ResourceHelper,
 ) : ViewModel() {
 
     private val homeEventsChannel = Channel<HomeEvents>()
@@ -28,6 +29,41 @@ class HomeViewModel(
 
             allCoursesResponse = withContext(Dispatchers.IO) {
                 NetworkApi.retrofitService.getAllCourses()
+            }
+
+            if (allCoursesResponse.isSuccessful) {
+                val result = allCoursesResponse.body()
+                Timber.d("success response: ${result.toString()}")
+
+                result?.let {
+                    homeEventsChannel.send(HomeEvents.ShowResult(it))
+                }
+
+            } else {
+                var errorMessage = allCoursesResponse.errorBody()?.string()
+                Timber.d("unsuccess response: $errorMessage")
+                if (errorMessage.isNullOrBlank()) {
+                    errorMessage = "Произошла ошибка!"
+                    homeEventsChannel.send(HomeEvents.ShowNotFound("Не найдено"))
+                }
+                homeEventsChannel.send(HomeEvents.ShowErrorMessage(errorMessage))
+                homeEventsChannel.send(HomeEvents.ShowNotFound("Не найдено"))
+            }
+        } catch (e: Exception) {
+            Timber.d(e)
+            homeEventsChannel.send(HomeEvents.ShowErrorMessage(e.message.toString()))
+        }
+    }
+
+    fun getAllCoursesByCategory(categories: CategoriesData) = viewModelScope.launch {
+        try {
+            var allCoursesResponse: Response<List<CourseModel>>? = null
+
+            allCoursesResponse = withContext(Dispatchers.IO) {
+                NetworkApi.retrofitService.getAllCoursesByCategory(
+                    "application/json",
+                    "application/json",
+                    categories)
             }
 
             if (allCoursesResponse.isSuccessful) {

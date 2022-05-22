@@ -34,13 +34,13 @@ interface ApiService {
         @Body body: AuthorizeData
     ): Response<AuthResponse>
 
-    @GET("course/api/")
+    @GET("api/course/")
     suspend fun getAllCourses(
         @Header("Content-Type") content_type: String = "application/json",
         @Header("Accept") accept: String = "application/json",
     ): Response<List<CourseModel>>
 
-    @POST("course/api/{id}")
+    @POST("api/course/{id}")
     suspend fun createCourse(
         @Path("id") id: String,
         @Header("Content-Type") content_type: String = "application/json",
@@ -48,21 +48,33 @@ interface ApiService {
         @Body body: CourseModel
     ): Response<ResponseBody>
 
-    @GET("course/api/categories")
+    @PUT("api/course/categories")
     suspend fun getAllCoursesByCategory(
         @Header("Content-Type") content_type: String = "application/json",
         @Header("Accept") accept: String = "application/json",
         @Body body: CategoriesData
     ): Response<List<CourseModel>>
 
-    @GET("course/api/{id}")
+    @GET("api/course/{id}")
     suspend fun getCourseById(
-        @Path("id") id: String,
+        @Path("id") id: Long,
         @Header("Content-Type") content_type: String = "application/json",
         @Header("Accept") accept: String = "application/json",
     ): Response<CourseModel>
 
+    @GET("api/module/{id}")
+    suspend fun getModuleById(
+        @Path("id") id: Long,
+        @Header("Content-Type") content_type: String = "application/json",
+        @Header("Accept") accept: String = "application/json",
+    ): Response<ModuleModel>
 
+    @GET("api/lesson/{id}")
+    suspend fun getLessonById(
+        @Path("id") id: Long,
+        @Header("Content-Type") content_type: String = "application/json",
+        @Header("Accept") accept: String = "application/json",
+    ): Response<LessonModel>
 }
 
 object NetworkApi {
@@ -81,7 +93,7 @@ object NetworkApi {
 
     fun authRetrofit(baseUrl: String) {
         authRetrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8181/")
+            .baseUrl("http://206.189.101.195:8080/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
@@ -94,7 +106,7 @@ object NetworkApi {
         }.build()
 
         retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8181/")
+            .baseUrl("http://206.189.101.195:8080/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()

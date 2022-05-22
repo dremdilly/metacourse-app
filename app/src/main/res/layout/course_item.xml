@@ -80,7 +80,6 @@
         android:text="@string/lorem_sample_text"
         android:textColor="@color/black"
         android:textSize="12sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/icon_container"
         app:layout_constraintTop_toBottomOf="@id/course_category_text" />
 
@@ -96,7 +95,7 @@
         android:gravity="center_vertical"
         android:paddingVertical="8dp"
         android:background="@drawable/bottom_round_box"
-        android:backgroundTint="@color/black">
+        android:backgroundTint="#33304FFE">
 
         <LinearLayout
             android:background="@drawable/stroke_box"
@@ -135,18 +134,18 @@
             android:paddingHorizontal="10dp">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_auditory"
-                app:tint="@color/white" />
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_time"
+                app:tint="@color/black" />
 
             <TextView
-                android:id="@+id/course_auditory_text"
+                android:id="@+id/course_duration_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:text="4.342"
-                android:textColor="@color/white" />
+                android:layout_marginStart="5dp"
+                android:text="3-5 hours"
+                android:textColor="@color/black" />
         </LinearLayout>
     </LinearLayout>
 

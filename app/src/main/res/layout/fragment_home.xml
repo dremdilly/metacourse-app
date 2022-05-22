@@ -17,7 +17,7 @@
         android:backgroundTint="@color/gray"
         android:background="@drawable/outline_box"
         android:layout_marginHorizontal="10dp"
-        app:queryHint="Search..."
+        app:queryHint="Search by category..."
         android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

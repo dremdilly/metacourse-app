@@ -7,6 +7,7 @@ import com.example.metacourse.network.NetworkApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -31,7 +32,19 @@ class SigninViewModel : ViewModel() {
             if (response.isSuccessful) {
                 signinEventsChannel.send(SigninEvents.NavigateToMain)
                 NetworkApi.createRetrofit("https://cabinet.spdev.kz", response.body()!!.jwtAuthResponse.accessToken)
-
+                if(response.body()?.person?.name != "null" && response.body()?.person?.surname != "null") {
+                    PreferenceManager.updateName(response.body()!!.person.name!!,
+                        response.body()?.person?.surname!!)
+                }
+                PreferenceManager.updateEmail(response.body()!!.person.email)
+                PreferenceManager.preferencesFlow.collect {
+                    if(it[PreferenceManager.PreferencesKeys.PHOTO] == null) {
+                        PreferenceManager.updatePhoto("")
+                    }
+                }
+                if(response.body()!!.person.dateOfBirth != null) {
+                    PreferenceManager.updateBirthdate(response.body()!!.person.dateOfBirth!!)
+                }
             } else {
                 signinEventsChannel.send(
                     SigninEvents.ShowErrorMessage(
